@@ -73,4 +73,15 @@ class TransactionController extends Controller
             return new JsonResponse($e->getMessage(), ResponseStatus::HTTP_NOT_FOUND);
         }
     }
+
+    public function filterByType($type): JsonResponse
+    {
+        try {
+            $expenses = $this->model->filterByType($type);
+
+            return new JsonResponse($expenses, ResponseStatus::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), ResponseStatus::HTTP_NOT_FOUND);
+        }
+    }
 }

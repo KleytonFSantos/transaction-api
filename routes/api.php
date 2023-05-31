@@ -27,6 +27,7 @@ Route::post('/login', LoginController::class);
 Route::controller(TransactionController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('/transactions', 'index');
     Route::get('/transaction/{transaction}', 'show');
+    Route::get('/transactions/{type}', 'filterByType');
     Route::post('/add-transaction', 'store');
     Route::patch('/update-transaction/{transaction}', 'update');
     Route::delete('/delete-transaction/{transaction}', 'destroy');
