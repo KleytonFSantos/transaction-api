@@ -20,6 +20,10 @@ class Transaction extends Model
         'user_id',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:d/m/Y',
+    ];
+
     public function filterByType($type): array|Collection
     {
         return $this->query()

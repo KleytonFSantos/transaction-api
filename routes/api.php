@@ -29,6 +29,8 @@ Route::controller(TransactionController::class)->middleware('auth:sanctum')->gro
     Route::get('/transaction/{transaction}', 'show');
     Route::get('/transactions/{type}', 'filterByType');
     Route::post('/add-transaction', 'store');
-    Route::patch('/update-transaction/{transaction}', 'update');
+    Route::put('/update-transaction/{transaction}', 'update');
     Route::delete('/delete-transaction/{transaction}', 'destroy');
 });
+
+Route::get('/teste/{transaction}', [TransactionController::class, 'testId']);

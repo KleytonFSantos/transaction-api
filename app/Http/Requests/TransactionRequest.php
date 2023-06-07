@@ -32,8 +32,8 @@ class TransactionRequest extends FormRequest
     {
         return [
             'type' => 'string|required',
-            'amount' => 'integer|required',
-            'description' => 'string|nullable',
+            'amount' => 'required',
+            'description' => 'string|required',
             'user_id' => 'integer'
         ];
     }
