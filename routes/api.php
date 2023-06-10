@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\TransactionController;
 use Illuminate\Http\Request;
@@ -23,12 +24,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', RegisterController::class);
 Route::post('/login', LoginController::class);
+Route::get('/logout', LogoutController::class)->middleware('auth:sanctum');
 
 Route::controller(TransactionController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('/transactions', 'index');
     Route::get('/transaction/{transaction}', 'show');
     Route::get('/transactions/{type}', 'filterByType');
     Route::post('/add-transaction', 'store');
-    Route::patch('/update-transaction/{transaction}', 'update');
+    Route::put('/update-transaction/{transaction}', 'update');
     Route::delete('/delete-transaction/{transaction}', 'destroy');
 });
+
+Route::get('/teste/{transaction}', [TransactionController::class, 'testId']);
