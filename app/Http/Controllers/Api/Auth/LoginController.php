@@ -26,7 +26,7 @@ class LoginController extends Controller
         $user = $this->model->where('email', $request->validated('email'))->first();
 
         abort_if(
-            !Hash::check($request->validated('password'), $user->password),
+            !Hash::check($request->validated('password'), $user?->password),
             404,
             'The credentials are invalid'
         );

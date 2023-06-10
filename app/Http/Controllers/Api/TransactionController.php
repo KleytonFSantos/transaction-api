@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Akaunting\Money\Currency;
-use Akaunting\Money\Money;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
