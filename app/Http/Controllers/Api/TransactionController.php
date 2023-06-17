@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 
 class TransactionController extends Controller
@@ -16,10 +15,10 @@ class TransactionController extends Controller
     public function __construct(private readonly Transaction $model)
     {
     }
-    public function index(User $user): JsonResponse
+    public function index(): JsonResponse
     {
         try {
-            $transactions = Auth::user()->transaction()->get();
+            $transactions = $this->model->getTransactions();
 
             return new JsonResponse(
                 $transactions,
@@ -70,17 +69,6 @@ class TransactionController extends Controller
         try {
             $transaction->delete();
             return new JsonResponse('', ResponseStatus::HTTP_NO_CONTENT);
-        } catch (\Exception $e) {
-            return new JsonResponse($e->getMessage(), ResponseStatus::HTTP_NOT_FOUND);
-        }
-    }
-
-    public function filterByType($type): JsonResponse
-    {
-        try {
-            $expenses = $this->model->filterByType($type);
-
-            return new JsonResponse($expenses, ResponseStatus::HTTP_OK);
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), ResponseStatus::HTTP_NOT_FOUND);
         }
