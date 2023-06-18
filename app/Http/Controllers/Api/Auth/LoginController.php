@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
@@ -26,7 +25,7 @@ class LoginController extends Controller
         $user = $this->model->where('email', $request->validated('email'))->first();
 
         abort_if(
-            !Hash::check($request->validated('password'), $user?->password),
+            ! Hash::check($request->validated('password'), $user?->password),
             404,
             'The credentials are invalid'
         );
@@ -36,7 +35,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             return new JsonResponse([
                 'user' => $user,
-                'token' => $token
+                'token' => $token,
             ], 201);
         }
 

@@ -11,7 +11,7 @@ class TransactionRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-           'user_id' => Auth::user()->id,
+            'user_id' => Auth::user()->id,
         ]);
     }
 
@@ -34,7 +34,7 @@ class TransactionRequest extends FormRequest
             'type' => 'string|required',
             'amount' => 'required',
             'description' => 'string|required',
-            'user_id' => 'integer'
+            'user_id' => 'integer',
         ];
     }
 }

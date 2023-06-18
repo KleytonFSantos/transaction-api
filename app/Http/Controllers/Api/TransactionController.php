@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 
 class TransactionController extends Controller
@@ -15,6 +13,7 @@ class TransactionController extends Controller
     public function __construct(private readonly Transaction $model)
     {
     }
+
     public function index(): JsonResponse
     {
         try {
@@ -35,21 +34,21 @@ class TransactionController extends Controller
     public function show(Transaction $transaction): JsonResponse
     {
         return new JsonResponse(
-          $transaction,
-          200
+            $transaction,
+            200
         );
     }
 
     public function store(TransactionRequest $request, Transaction $model): JsonResponse
     {
-      try {
-          $transaction = $request->validated();
-          $model->create($transaction);
+        try {
+            $transaction = $request->validated();
+            $model->create($transaction);
 
-          return new JsonResponse($transaction, ResponseStatus::HTTP_CREATED);
-      } catch (\Exception $e) {
-          return new JsonResponse($e->getMessage(), ResponseStatus::HTTP_NOT_FOUND);
-      }
+            return new JsonResponse($transaction, ResponseStatus::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), ResponseStatus::HTTP_NOT_FOUND);
+        }
     }
 
     public function update(TransactionRequest $request, Transaction $transaction): JsonResponse
@@ -68,6 +67,7 @@ class TransactionController extends Controller
     {
         try {
             $transaction->delete();
+
             return new JsonResponse('', ResponseStatus::HTTP_NO_CONTENT);
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), ResponseStatus::HTTP_NOT_FOUND);
