@@ -36,16 +36,19 @@ class Transaction extends Model
     public function getTransactions()
     {
         return Auth::user()->transaction()
-            ->when(request('description'), function ($query){
+            ->when(request('description') && request('description') !== 'undefined', function ($query){
                 $query->where('description', 'LIKE', '%' . request('description') . '%');
             })
             ->when(request('type'), function ($query) {
                 $query->where('type', request('type'));
             })
             ->when(request('dateFrom') && request('dateTo'), function ($query) {
-                $dateFrom = Carbon::createFromFormat('d/m/Y', request('dateFrom'))->format('Y-m-d');
-                $dateTo = Carbon::createFromFormat('d/m/Y', request('dateTo'))->format('Y-m-d');
+                $dateFrom = Carbon::createFromFormat('Y-m-d', request('dateFrom'))->startOfDay()->format('Y-m-d H:i:s');
+                $dateTo = Carbon::createFromFormat('Y-m-d', request('dateTo'))->endOfDay()->format('Y-m-d H:i:s');
                 $query->whereBetween('created_at', [$dateFrom, $dateTo]);
+            })
+            ->when(request('orderBy') && !request('orderTo'), function ($query) {
+                $query->orderBy(request('orderBy'), 'desc');
             })
             ->when(request('orderBy') && request('orderTo'), function ($query) {
                 $query->orderBy(request('orderBy'), request('orderTo'));
