@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 class RegisterController extends Controller
 {
     public function __construct(private readonly User $model)

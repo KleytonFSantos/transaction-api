@@ -21,7 +21,7 @@ class TransactionFactory extends Factory
             'amount' => fake()->randomFloat(),
             'description' => fake()->text(25),
             'type' => fake()->randomElement(['expense', 'income']),
-            'user_id' => fake()->randomNumber()
+            'user_id' => fake()->randomNumber(),
         ];
     }
 }

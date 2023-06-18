@@ -23,11 +23,10 @@ class UpdateTransactionTest extends TestCase
             'description' => 'Test transaction',
         ];
 
-        $response = $this->actingAs($user)->put('/api/update-transaction/' . $transaction->id, $requestData);
+        $response = $this->actingAs($user)->put('/api/update-transaction/'.$transaction->id, $requestData);
 
         $response->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('transaction', $requestData);
     }
-
 }

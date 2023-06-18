@@ -17,7 +17,7 @@ class DeleteTransactionTest extends TestCase
         $user = User::factory()->create();
         $transaction = Transaction::factory()->create();
 
-        $response = $this->actingAs($user)->delete('/api/delete-transaction/' . $transaction->id);
+        $response = $this->actingAs($user)->delete('/api/delete-transaction/'.$transaction->id);
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
 
