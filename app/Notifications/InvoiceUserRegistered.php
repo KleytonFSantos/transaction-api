@@ -36,8 +36,8 @@ class InvoiceUserRegistered extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Hello '.Str::ucfirst($notifiable->name).', thanks for registering!')
-                    ->action('Log In Here', url(env('SPA_URL')));
+            ->line('Hello '.Str::ucfirst($notifiable->name).', thanks for registering!')
+            ->action('Log In Here', url(env('SPA_URL')));
     }
 
     /**
